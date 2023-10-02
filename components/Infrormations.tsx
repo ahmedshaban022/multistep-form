@@ -8,7 +8,6 @@ interface InfrormationsProps {
 const Infrormations: FC<InfrormationsProps> = ({ informations }) => {
   return (
     <div className="m-2 p-2 text-center">
-      \
       <div className="border m-2 p-2 ">
         <h3>Personal Information</h3>
         <div className="">
@@ -56,8 +55,8 @@ const Infrormations: FC<InfrormationsProps> = ({ informations }) => {
             <div className="border p-2 m-2 " key={i}>
               <p>Company :{item?.company}</p>
               <p>position :{item?.position}</p>
-              <p>Start Date :{item?.startDate.toString()}</p>
-              <p>End Date :{item?.endDate.toString()}</p>
+              <p>Start Date :{item?.startDate.toISOString()}</p>
+              <p>End Date :{item?.endDate.toISOString()}</p>
             </div>
           ))}
         </div>

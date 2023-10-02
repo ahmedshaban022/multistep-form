@@ -19,30 +19,28 @@ export const contactInfoSchema = z.object({
   phone: z.string().regex(phoneRegex, "Invalid Number!"),
 });
 
-export const educationSchema = z
-  .object({
-    degree: z.string().nonempty(),
-    fieldOfStudy: z.string().nonempty(),
-    startYear: z.coerce.number().min(1990).max(new Date().getFullYear()),
-    endYear: z.coerce.number().min(1990).max(new Date().getFullYear()),
-  })
-  .refine((education) => {
-    const { startYear, endYear } = education;
-    return startYear < endYear;
-  });
+export const educationSchema = z.object({
+  degree: z.string().nonempty("Degree is required"),
+  fieldOfStudy: z.string().nonempty("Field Of Study is required"),
+  startYear: z.coerce.number().min(1990).max(new Date().getFullYear()),
+  endYear: z.coerce.number().min(1990).max(new Date().getFullYear()),
+});
+//   .refine((education) => {
+//     const { startYear, endYear } = education;
+//     return startYear < endYear;
+//   });
 
 export const experienceSchema = z.array(
-  z
-    .object({
-      company: z.string(),
-      position: z.string(),
-      startDate: z.coerce.date(),
-      endDate: z.coerce.date(),
-    })
-    .refine((experience) => {
-      const { startDate, endDate } = experience;
-      return startDate < endDate;
-    })
+  z.object({
+    company: z.string().nonempty(),
+    position: z.string().nonempty(),
+    startDate: z.coerce.date(),
+    endDate: z.coerce.date(),
+  })
+  // .refine((experience) => {
+  //   const { startDate, endDate } = experience;
+  //   return startDate < endDate;
+  // })
 );
 export const hobbiesSchema = z.array(z.string());
 

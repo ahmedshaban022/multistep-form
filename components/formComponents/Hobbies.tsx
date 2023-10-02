@@ -50,7 +50,7 @@ const Hobbies: FC<HobbiesProps> = ({ formHook }) => {
     <div>
       <div className="">
         <h1 className="text-2xl text-gray-700 text-center m-2">
-          Choose Your Hobbies
+          Choose Your Hobbies <small>(Optional)</small>
         </h1>
       </div>
       <div className="grid grid-cols-3 md:grid-cols-5 gap-5">
