@@ -14,6 +14,8 @@ interface InputWrapperProps {
   value?: string;
   errorMsg?: string;
   register: UseFormRegisterReturn;
+  min?: number;
+  max?: number;
 }
 
 const InputWrapper: FC<InputWrapperProps> = ({

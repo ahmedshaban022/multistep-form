@@ -19,13 +19,17 @@ export const contactInfoSchema = z.object({
   phone: z.string().regex(phoneRegex, "Invalid Number!"),
 });
 
-export const educationSchema = z.object({
-  degree: z.string(),
-  fieldOfStudy: z.string(),
-  startYear: z.coerce.date(),
-  endYear: z.coerce.date(),
-  description: z.string(),
-});
+export const educationSchema = z
+  .object({
+    degree: z.string().nonempty(),
+    fieldOfStudy: z.string().nonempty(),
+    startYear: z.coerce.number().min(1990).max(new Date().getFullYear()),
+    endYear: z.coerce.number().min(1990).max(new Date().getFullYear()),
+  })
+  .refine((education) => {
+    const { startYear, endYear } = education;
+    return startYear < endYear;
+  });
 
 export const experienceSchema = z.array(
   z.object({

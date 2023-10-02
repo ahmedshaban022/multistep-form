@@ -12,6 +12,7 @@ import {
 } from "@/zod/formSchemas";
 import z, { object } from "zod";
 import ContactInfo from "./ContactInfo";
+import Education from "./Education";
 
 export const formValuesKys = [
   "personalInfo",
@@ -32,7 +33,7 @@ const FormWrapper: FC<FormWrapperProps> = ({}) => {
     useMultiStepForm([
       <PersonalInfo formHook={formHook} key={0} />,
       <ContactInfo formHook={formHook} key={1} />,
-      <div key={2}>three</div>,
+      <Education formHook={formHook} key={2} />,
       <div key={3}>4</div>,
       <div key={4}>5</div>,
       <div key={5}>6</div>,
