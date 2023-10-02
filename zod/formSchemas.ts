@@ -5,8 +5,10 @@ const phoneRegex = new RegExp(
 export const personalInfoSchema = z.object({
   fullName: z.string().min(3),
   gender: z.enum(["male", "female"]),
-  dateOfBirth: z.coerce.date(),
-  country: z.string(),
+  country: z.string({ required_error: "Country is required" }),
+  dateOfBirth: z.coerce.date().refine((date) => {
+    return date > new Date("1930-01-01") && date < new Date();
+  }),
   maritalStatus: z.enum(["single", "married"]),
 });
 
@@ -34,9 +36,7 @@ export const experienceSchema = z.array(
     description: z.string(),
   })
 );
-export const hobbiesSchema = z.object({
-  hobbies: z.array(z.string()),
-});
+export const hobbiesSchema = z.array(z.string());
 
 export const formSchema = z.object({
   personalInfo: personalInfoSchema,
@@ -45,3 +45,19 @@ export const formSchema = z.object({
   experience: experienceSchema,
   hobbies: hobbiesSchema,
 });
+export const zodSchemasArr = [
+  personalInfoSchema,
+  contactInfoSchema,
+  educationSchema,
+  experienceSchema,
+  hobbiesSchema,
+] as const;
+export const zodSchemasStringArr = [
+  "personalInfoSchema",
+  "contactInfoSchema",
+  "educationSchema",
+  "experienceSchema",
+  "hobbiesSchema",
+] as const;
+
+export type formType = z.infer<typeof formSchema>;

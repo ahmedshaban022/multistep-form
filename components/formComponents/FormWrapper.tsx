@@ -3,11 +3,23 @@ import { useMultiStepForm } from "@/hooks/useMultiStepForm";
 import { FC } from "react";
 import PersonalInfo from "./PersonalInfo";
 import { useForm } from "react-hook-form";
+import { zodResolver } from "@hookform/resolvers/zod";
+import {
+  formSchema,
+  formType,
+  personalInfoSchema,
+  zodSchemasArr,
+  zodSchemasStringArr,
+} from "@/zod/formSchemas";
+import z, { object } from "zod";
 
 interface FormWrapperProps {}
 
 const FormWrapper: FC<FormWrapperProps> = ({}) => {
-  const formHook = useForm();
+  const formHook = useForm<z.infer<typeof formSchema>>({
+    mode: "onChange",
+    resolver: zodResolver(formSchema),
+  });
   const { steps, currentStepIndex, currentStep, backStep, nextStep } =
     useMultiStepForm([
       <PersonalInfo formHook={formHook} key={0} />,
@@ -18,9 +30,17 @@ const FormWrapper: FC<FormWrapperProps> = ({}) => {
       <div key={5}>6</div>,
       <div key={5}>7</div>,
     ]);
+  const handleSubmit = (data: formType) => {
+    console.log("*".repeat(50));
+    console.log(data);
+    console.log("/".repeat(50));
+  };
   return (
     <div className=" mt-6 m-auto relative border-black border-2 p-4  rounded-lg sm:max-w-[60vw] min-h-[200px]">
-      <form className="space-y-4 m-auto flex flex-col items-center">
+      <form
+        onSubmit={formHook.handleSubmit(handleSubmit)}
+        className="space-y-4 m-auto flex flex-col items-center"
+      >
         <div className="absolute top-1 right-2">
           {currentStepIndex} / {steps.length}
         </div>
@@ -36,16 +56,42 @@ const FormWrapper: FC<FormWrapperProps> = ({}) => {
               Back
             </button>
           )}
-
-          <button
-            type="button"
-            className="border rounded-lg bg-green-900 m-2 p-2 text-white hover:bg-opacity-90"
-            onClick={nextStep}
-          >
-            {currentStepIndex < steps.length - 1 ? "Next" : "Submit"}
-          </button>
+          {currentStepIndex < steps.length - 1 ? (
+            <button
+              type="button"
+              className="border rounded-lg bg-green-900 m-2 p-2 text-white hover:bg-opacity-90"
+              onClick={() => {
+                // const validation = zodSchemasArr[currentStepIndex].safeParse(
+                //   formHook.getValues()[zodSchemasStringArr[currentStepIndex]]
+                // );
+                // nextStep();
+              }}
+            >
+              Next
+            </button>
+          ) : (
+            <button
+              type="submit"
+              className="border rounded-lg bg-green-900 m-2 p-2 text-white hover:bg-opacity-90"
+            >
+              Submit
+            </button>
+          )}
         </div>
       </form>
+      <button onClick={() => console.log(formHook.getValues().personalInfo)}>
+        Values
+      </button>
+      <button
+        className="mx-5 text-red-700"
+        onClick={() => {
+          console.log(formHook.formState.isValid);
+
+          console.log(formHook.formState.errors);
+        }}
+      >
+        Errors
+      </button>
     </div>
   );
 };

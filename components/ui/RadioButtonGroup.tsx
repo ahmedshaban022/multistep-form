@@ -1,5 +1,9 @@
 import React, { FC } from "react";
-import { FieldValues, UseFormRegister } from "react-hook-form";
+import {
+  FieldValues,
+  UseFormRegister,
+  UseFormRegisterReturn,
+} from "react-hook-form";
 
 interface RadioButtonGroupProps {
   headLabel: string;
@@ -7,7 +11,7 @@ interface RadioButtonGroupProps {
   name: string;
   value?: string;
   errorMsg?: string;
-  register: UseFormRegister<FieldValues>;
+  register: UseFormRegisterReturn;
 }
 
 const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
@@ -32,7 +36,7 @@ const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
                 id={option.value}
                 type="radio"
                 value={option.value}
-                {...register(name)}
+                {...register}
               />
               {option.label}
             </label>

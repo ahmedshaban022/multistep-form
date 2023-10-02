@@ -1,14 +1,18 @@
+"use client";
 import { FC } from "react";
 import InputWrapper from "../ui/InputWrapper";
 import RadioButtonGroup from "../ui/RadioButtonGroup";
-import { FieldValues, UseFormReturn } from "react-hook-form";
+import { UseFormReturn } from "react-hook-form";
+import { formType } from "@/zod/formSchemas";
 
 interface PersonalInfoProps {
-  formHook: UseFormReturn<FieldValues>;
+  formHook: UseFormReturn<formType>;
 }
 
 const PersonalInfo: FC<PersonalInfoProps> = ({ formHook }) => {
-  const { register } = formHook;
+  const { register, formState, getValues } = formHook;
+  const { errors } = formState;
+
   return (
     <div>
       <div className="space-y-2">
@@ -19,45 +23,48 @@ const PersonalInfo: FC<PersonalInfoProps> = ({ formHook }) => {
       <div>
         <InputWrapper
           type="text"
-          register={register}
+          register={register("personalInfo.fullName")}
           placeholder="Full Name"
           label="Full Name"
           name="fullName"
-          errorMsg={""}
+          errorMsg={errors?.personalInfo?.fullName?.message}
         />
         <InputWrapper
-          register={register}
+          register={register("personalInfo.dateOfBirth")}
           type="date"
           placeholder="Date of Birth"
           label="Date of Birth"
           name="dateOfBirth"
-          errorMsg={""}
+          errorMsg={errors?.personalInfo?.dateOfBirth?.message}
         />
         <InputWrapper
-          register={register}
+          register={register("personalInfo.country")}
           type="text"
           placeholder="Country"
           label="Country"
           name="country"
+          errorMsg={errors?.personalInfo?.country?.message}
         />
 
         <RadioButtonGroup
-          register={register}
+          register={register("personalInfo.gender")}
           headLabel="Gender"
           name="gender"
           options={[
             { label: "Male", value: "male" },
             { label: "Female", value: "female" },
           ]}
+          errorMsg={errors?.personalInfo?.gender?.message}
         />
         <RadioButtonGroup
           headLabel="Marital Status"
-          register={register}
+          register={register("personalInfo.maritalStatus")}
           name="maritalStatus"
           options={[
             { label: "Single", value: "single" },
             { label: "Married", value: "married" },
           ]}
+          errorMsg={errors?.personalInfo?.maritalStatus?.message}
         />
       </div>
     </div>
