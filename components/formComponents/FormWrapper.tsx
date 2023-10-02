@@ -8,6 +8,7 @@ import { formSchema, formType, zodSchemasArr } from "@/zod/formSchemas";
 import ContactInfo from "./ContactInfo";
 import Education from "./Education";
 import Experience from "./Experience";
+import Hobbies from "./Hobbies";
 
 export const formValuesKys = [
   "personalInfo",
@@ -30,9 +31,7 @@ const FormWrapper: FC<FormWrapperProps> = ({}) => {
       <ContactInfo formHook={formHook} key={1} />,
       <Education formHook={formHook} key={2} />,
       <Experience formHook={formHook} key={3} />,
-      <div key={4}>5</div>,
-      <div key={5}>6</div>,
-      <div key={5}>7</div>,
+      <Hobbies formHook={formHook} key={4} />,
     ]);
   const handleSubmit = (data: formType) => {
     console.log("*".repeat(50));
