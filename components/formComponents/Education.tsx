@@ -17,7 +17,7 @@ const Education: FC<educationProps> = ({ formHook }) => {
     <div>
       <div className="space-y-2">
         <h1 className="text-2xl text-gray-700 text-center">
-          Personal informations
+          Education informations
         </h1>
       </div>
       <div>

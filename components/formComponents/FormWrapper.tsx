@@ -1,6 +1,6 @@
 "use client";
 import { useMultiStepForm } from "@/hooks/useMultiStepForm";
-import { FC } from "react";
+import { FC, useState } from "react";
 import PersonalInfo from "./PersonalInfo";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -9,6 +9,7 @@ import ContactInfo from "./ContactInfo";
 import Education from "./Education";
 import Experience from "./Experience";
 import Hobbies from "./Hobbies";
+import Infrormations from "../Infrormations";
 
 export const formValuesKys = [
   "personalInfo",
@@ -21,8 +22,10 @@ export const formValuesKys = [
 interface FormWrapperProps {}
 
 const FormWrapper: FC<FormWrapperProps> = ({}) => {
+  const [submittedInfo, setSubmittedInfo] = useState<formType | null>(null);
   const formHook = useForm<formType>({
-    mode: "onChange",
+    mode: "all",
+
     resolver: zodResolver(formSchema),
   });
   const { steps, currentStepIndex, currentStep, backStep, nextStep } =
@@ -34,9 +37,8 @@ const FormWrapper: FC<FormWrapperProps> = ({}) => {
       <Hobbies formHook={formHook} key={4} />,
     ]);
   const handleSubmit = (data: formType) => {
-    console.log("*".repeat(50));
     console.log(data);
-    console.log("/".repeat(50));
+    setSubmittedInfo(data);
   };
   return (
     <div className=" mt-6 m-auto relative border-black border-2 p-4  rounded-lg sm:max-w-[60vw] min-h-[200px]">
@@ -45,7 +47,7 @@ const FormWrapper: FC<FormWrapperProps> = ({}) => {
         className="space-y-4 m-auto flex flex-col items-center"
       >
         <div className="absolute top-1 right-2 border rounded-full border-blue-500 m-2 px-3 py-1">
-          {currentStepIndex} / {steps.length}
+          {currentStepIndex} / {steps.length - 1}
         </div>
         <div>{currentStep}</div>
 
@@ -87,6 +89,8 @@ const FormWrapper: FC<FormWrapperProps> = ({}) => {
           )}
         </div>
       </form>
+      <div className="my-2"></div>
+      {submittedInfo && <Infrormations informations={submittedInfo} />}
     </div>
   );
 };

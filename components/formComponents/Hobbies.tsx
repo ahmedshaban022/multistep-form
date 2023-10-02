@@ -29,7 +29,7 @@ const Hobbies: FC<HobbiesProps> = ({ formHook }) => {
   const { getValues, setValue, formState } = formHook;
   const { errors } = formState;
   if (!getValues("hobbies")) setValue("hobbies", []);
-  //   const [state,useSta]
+
   const handleAddOrRemoveHobbie = (hobbie: string) => {
     if (!getValues("hobbies")) {
       setValue("hobbies", [hobbie]);
@@ -53,7 +53,7 @@ const Hobbies: FC<HobbiesProps> = ({ formHook }) => {
           Choose Your Hobbies
         </h1>
       </div>
-      <div className="grid grid-cols-5 gap-5">
+      <div className="grid grid-cols-3 md:grid-cols-5 gap-5">
         {hobbies.map((item, i) => {
           return (
             <button

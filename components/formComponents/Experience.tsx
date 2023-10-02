@@ -71,7 +71,7 @@ const Experience: FC<experienceProps> = ({ formHook }) => {
     <div>
       <div className="space-y-2">
         <h1 className="text-2xl text-gray-700 text-center">
-          Personal informations
+          Experience informations
         </h1>
       </div>
       <div>
