@@ -1,4 +1,5 @@
 import React, { FC } from "react";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface RadioButtonGroupProps {
   headLabel: string;
@@ -6,6 +7,7 @@ interface RadioButtonGroupProps {
   name: string;
   value?: string;
   errorMsg?: string;
+  register: UseFormRegister<FieldValues>;
 }
 
 const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
@@ -14,7 +16,7 @@ const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
   options,
   value,
   errorMsg,
-  ...props
+  register,
 }) => {
   return (
     <div className="flex flex-col">
@@ -29,9 +31,8 @@ const RadioButtonGroup: FC<RadioButtonGroupProps> = ({
                 className="m-2"
                 id={option.value}
                 type="radio"
-                {...props}
-                name={name}
                 value={option.value}
+                {...register(name)}
               />
               {option.label}
             </label>

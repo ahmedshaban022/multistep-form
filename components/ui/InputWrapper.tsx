@@ -1,4 +1,5 @@
 import { Attributes, FC, HTMLAttributes, InputHTMLAttributes } from "react";
+import { FieldValues, UseFormRegister } from "react-hook-form";
 
 interface InputWrapperProps {
   type: string;
@@ -7,6 +8,7 @@ interface InputWrapperProps {
   name: string;
   value?: string;
   errorMsg?: string;
+  register: UseFormRegister<FieldValues>;
 }
 
 const InputWrapper: FC<InputWrapperProps> = ({
@@ -16,7 +18,7 @@ const InputWrapper: FC<InputWrapperProps> = ({
   name,
   value,
   errorMsg,
-  ...props
+  register,
 }) => {
   return (
     <div className="flex flex-col">
@@ -26,8 +28,8 @@ const InputWrapper: FC<InputWrapperProps> = ({
       <input
         className="border-black border p-2 rounded-lg w-[350px] focus:w-[400px] transition-all focus:border-blue-600 outline-none"
         id={name}
+        {...register(name)}
         type={type}
-        {...props}
         placeholder={placeholder}
         name={name}
         value={value}

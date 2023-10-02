@@ -2,13 +2,15 @@
 import { useMultiStepForm } from "@/hooks/useMultiStepForm";
 import { FC } from "react";
 import PersonalInfo from "./PersonalInfo";
+import { useForm } from "react-hook-form";
 
 interface FormWrapperProps {}
 
 const FormWrapper: FC<FormWrapperProps> = ({}) => {
+  const formHook = useForm();
   const { steps, currentStepIndex, currentStep, backStep, nextStep } =
     useMultiStepForm([
-      <PersonalInfo key={0} />,
+      <PersonalInfo formHook={formHook} key={0} />,
       <div key={1}>two</div>,
       <div key={2}>three</div>,
       <div key={3}>4</div>,

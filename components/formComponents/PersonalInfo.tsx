@@ -1,10 +1,14 @@
 import { FC } from "react";
 import InputWrapper from "../ui/InputWrapper";
 import RadioButtonGroup from "../ui/RadioButtonGroup";
+import { FieldValues, UseFormReturn } from "react-hook-form";
 
-interface PersonalInfoProps {}
+interface PersonalInfoProps {
+  formHook: UseFormReturn<FieldValues>;
+}
 
-const PersonalInfo: FC<PersonalInfoProps> = ({}) => {
+const PersonalInfo: FC<PersonalInfoProps> = ({ formHook }) => {
+  const { register } = formHook;
   return (
     <div>
       <div className="space-y-2">
@@ -15,12 +19,14 @@ const PersonalInfo: FC<PersonalInfoProps> = ({}) => {
       <div>
         <InputWrapper
           type="text"
+          register={register}
           placeholder="Full Name"
           label="Full Name"
           name="fullName"
           errorMsg={""}
         />
         <InputWrapper
+          register={register}
           type="date"
           placeholder="Date of Birth"
           label="Date of Birth"
@@ -28,6 +34,7 @@ const PersonalInfo: FC<PersonalInfoProps> = ({}) => {
           errorMsg={""}
         />
         <InputWrapper
+          register={register}
           type="text"
           placeholder="Country"
           label="Country"
@@ -35,6 +42,7 @@ const PersonalInfo: FC<PersonalInfoProps> = ({}) => {
         />
 
         <RadioButtonGroup
+          register={register}
           headLabel="Gender"
           name="gender"
           options={[
@@ -44,6 +52,7 @@ const PersonalInfo: FC<PersonalInfoProps> = ({}) => {
         />
         <RadioButtonGroup
           headLabel="Marital Status"
+          register={register}
           name="maritalStatus"
           options={[
             { label: "Single", value: "single" },

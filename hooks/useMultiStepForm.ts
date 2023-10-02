@@ -1,7 +1,9 @@
 import { ReactElement, useState } from "react";
+// import { FieldValues, UseFormReturn } from "react-hook-form";
 
 type MultiStepFormProps = {
   steps: ReactElement[];
+  //   form: UseFormReturn<FieldValues, any, undefined>;
 };
 export function useMultiStepForm(steps: ReactElement[]) {
   //todo use the react hook form here ?
