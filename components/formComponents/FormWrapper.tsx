@@ -13,6 +13,7 @@ import {
 import z, { object } from "zod";
 import ContactInfo from "./ContactInfo";
 import Education from "./Education";
+import Experience from "./Experience";
 
 export const formValuesKys = [
   "personalInfo",
@@ -34,7 +35,7 @@ const FormWrapper: FC<FormWrapperProps> = ({}) => {
       <PersonalInfo formHook={formHook} key={0} />,
       <ContactInfo formHook={formHook} key={1} />,
       <Education formHook={formHook} key={2} />,
-      <div key={3}>4</div>,
+      <Experience formHook={formHook} key={3} />,
       <div key={4}>5</div>,
       <div key={5}>6</div>,
       <div key={5}>7</div>,

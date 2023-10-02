@@ -32,13 +32,17 @@ export const educationSchema = z
   });
 
 export const experienceSchema = z.array(
-  z.object({
-    company: z.string(),
-    position: z.string(),
-    startYear: z.coerce.date(),
-    endYear: z.coerce.date(),
-    description: z.string(),
-  })
+  z
+    .object({
+      company: z.string(),
+      position: z.string(),
+      startDate: z.coerce.date(),
+      endDate: z.coerce.date(),
+    })
+    .refine((experience) => {
+      const { startDate, endDate } = experience;
+      return startDate < endDate;
+    })
 );
 export const hobbiesSchema = z.array(z.string());
 
