@@ -52,12 +52,5 @@ export const zodSchemasArr = [
   experienceSchema,
   hobbiesSchema,
 ] as const;
-export const zodSchemasStringArr = [
-  "personalInfoSchema",
-  "contactInfoSchema",
-  "educationSchema",
-  "experienceSchema",
-  "hobbiesSchema",
-] as const;
 
 export type formType = z.infer<typeof formSchema>;

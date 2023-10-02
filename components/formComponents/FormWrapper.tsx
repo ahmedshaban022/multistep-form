@@ -9,9 +9,16 @@ import {
   formType,
   personalInfoSchema,
   zodSchemasArr,
-  zodSchemasStringArr,
 } from "@/zod/formSchemas";
 import z, { object } from "zod";
+
+export const formValuesKys = [
+  "personalInfo",
+  "contactInfo",
+  "education",
+  "experience",
+  "hobbies",
+] as const;
 
 interface FormWrapperProps {}
 
@@ -61,10 +68,15 @@ const FormWrapper: FC<FormWrapperProps> = ({}) => {
               type="button"
               className="border rounded-lg bg-green-900 m-2 p-2 text-white hover:bg-opacity-90"
               onClick={() => {
-                // const validation = zodSchemasArr[currentStepIndex].safeParse(
-                //   formHook.getValues()[zodSchemasStringArr[currentStepIndex]]
-                // );
-                // nextStep();
+                const validation = zodSchemasArr[currentStepIndex].safeParse(
+                  formHook.getValues()[formValuesKys[currentStepIndex]]
+                );
+                console.log(validation);
+                if (!validation.success) {
+                  alert("Validation failed");
+                  return;
+                }
+                nextStep();
               }}
             >
               Next
