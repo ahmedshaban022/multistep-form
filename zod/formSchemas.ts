@@ -3,9 +3,9 @@ const phoneRegex = new RegExp(
   /^([+]?[\s0-9]+)?(\d{3}|[(]?[0-9]+[)])?([-]?[\s]?[0-9])+$/
 );
 export const personalInfoSchema = z.object({
-  fullName: z.string().min(3),
+  fullName: z.string().nonempty(),
   gender: z.enum(["male", "female"]),
-  country: z.string({ required_error: "Country is required" }),
+  country: z.string().nonempty(),
   dateOfBirth: z.coerce.date().refine((date) => {
     return date > new Date("1930-01-01") && date < new Date();
   }),
@@ -14,9 +14,9 @@ export const personalInfoSchema = z.object({
 
 export const contactInfoSchema = z.object({
   email: z.string().email(),
-  countryCode: z.coerce.number().min(0).max(99),
+  countryCode: z.string().startsWith("+").max(3).min(2),
+  address: z.string().nonempty(),
   phone: z.string().regex(phoneRegex, "Invalid Number!"),
-  address: z.string(),
 });
 
 export const educationSchema = z.object({
